@@ -33,6 +33,153 @@
     });
   }
 
+
+  var clipsKey = "clipmx-clips";
+  var clipStatus = { revision: "En revisión", aprobado: "Aprobado", rechazado: "Rechazado" };
+
+  function readClips() {
+    try {
+      var list = JSON.parse(localStorage.getItem(clipsKey) || "[]");
+      return Array.isArray(list) ? list : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  function saveClips(list) {
+    localStorage.setItem(clipsKey, JSON.stringify(list));
+  }
+  function paintClipForm() {
+    var select = document.getElementById("clip-campana");
+    if (!select) return;
+    var mine = readJoined().filter(function (id) { return catalog[id]; });
+    select.textContent = "";
+    if (!mine.length) {
+      var empty = document.createElement("option");
+      empty.value = "";
+      empty.textContent = "Primero selecciona una campaña";
+      select.appendChild(empty);
+      select.disabled = true;
+      return;
+    }
+    select.disabled = false;
+    mine.forEach(function (id) {
+      var opt = document.createElement("option");
+      opt.value = id;
+      opt.textContent = catalog[id].name;
+      select.appendChild(opt);
+    });
+  }
+  function paintMyClips() {
+    var box = document.getElementById("mis-clips");
+    var count = document.getElementById("clips-enviados");
+    if (count) count.textContent = String(readClips().length);
+    if (!box) return;
+    box.textContent = "";
+    readClips().forEach(function (clip) {
+      var row = document.createElement("article");
+      row.className = "offer";
+      var title = document.createElement("h3");
+      title.textContent = catalog[clip.campaign] ? catalog[clip.campaign].name : "Campaña";
+      var link = document.createElement("a");
+      link.href = clip.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = clip.url;
+      var state = document.createElement("p");
+      state.className = "panel-note";
+      state.textContent = clipStatus[clip.status] || "En revisión";
+      row.appendChild(title);
+      row.appendChild(link);
+      row.appendChild(state);
+      box.appendChild(row);
+    });
+  }
+  function paintBrandClips() {
+    var box = document.getElementById("inbox");
+    if (!box) return;
+    var clips = readClips();
+    var pending = clips.filter(function (clip) { return clip.status === "revision"; }).length;
+    var approved = clips.filter(function (clip) { return clip.status === "aprobado"; }).length;
+    var received = document.getElementById("clips-recibidos");
+    var waiting = document.getElementById("clips-pendientes");
+    var approvedEl = document.getElementById("clips-aprobados");
+    if (received) received.textContent = String(clips.length);
+    if (waiting) waiting.textContent = pending + " pendientes de revisión";
+    if (approvedEl) approvedEl.textContent = String(approved);
+    var empty = document.getElementById("inbox-empty");
+    var ok = document.getElementById("inbox-ok");
+    if (empty) empty.hidden = clips.length > 0;
+    if (ok) ok.hidden = pending === 0 ? clips.length === 0 : true;
+    box.textContent = "";
+    clips.forEach(function (clip) {
+      var row = document.createElement("article");
+      row.className = "offer";
+      var title = document.createElement("h3");
+      title.textContent = catalog[clip.campaign] ? catalog[clip.campaign].name : "Campaña";
+      var link = document.createElement("a");
+      link.href = clip.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = clip.url;
+      var state = document.createElement("p");
+      state.className = "panel-note";
+      state.textContent = clipStatus[clip.status] || "En revisión";
+      row.appendChild(title);
+      row.appendChild(link);
+      row.appendChild(state);
+      if (clip.status === "revision") {
+        var actions = document.createElement("div");
+        actions.className = "clip-row";
+        var yes = document.createElement("button");
+        yes.className = "btn btn-primary btn-small";
+        yes.type = "button";
+        yes.textContent = "Aprobar";
+        yes.addEventListener("click", function () { setClipStatus(clip.id, "aprobado"); });
+        var no = document.createElement("button");
+        no.className = "btn btn-danger btn-small";
+        no.type = "button";
+        no.textContent = "Rechazar";
+        no.addEventListener("click", function () { setClipStatus(clip.id, "rechazado"); });
+        actions.appendChild(yes);
+        actions.appendChild(no);
+        row.appendChild(actions);
+      }
+      box.appendChild(row);
+    });
+  }
+  function setClipStatus(id, status) {
+    var clips = readClips();
+    clips.forEach(function (clip) {
+      if (clip.id === id) clip.status = status;
+    });
+    saveClips(clips);
+    paintBrandClips();
+    paintMyClips();
+  }
+  function bindClipForm() {
+    var form = document.getElementById("clip-form");
+    if (!form) return;
+    paintClipForm();
+    paintMyClips();
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var campaign = document.getElementById("clip-campana").value;
+      var url = document.getElementById("clip-url").value.trim();
+      var msg = document.getElementById("clip-msg");
+      if (!catalog[campaign] || !url) {
+        if (msg) msg.textContent = "Selecciona una campaña y pega un enlace.";
+        return;
+      }
+      var clips = readClips();
+      clips.unshift({ id: String(Date.now()), campaign: campaign, url: url, status: "revision" });
+      saveClips(clips);
+      form.reset();
+      paintClipForm();
+      paintMyClips();
+      if (msg) msg.textContent = "Enviado a revisión. Ábrelo en el panel de marca de este mismo navegador.";
+    });
+  }
+
   var params = new URLSearchParams(location.search);
   var join = params.get("unirse");
   if (join && catalog[join]) {
@@ -107,6 +254,7 @@
       paintMine();
       markButtons();
       paintRegistered();
+      paintClipForm();
       show("mias");
     }
     tabs.forEach(function (tab) {
@@ -171,4 +319,6 @@
     });
   });
   paintRegistered();
+  bindClipForm();
+  paintBrandClips();
 })();

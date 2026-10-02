@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <header class="site-header">
@@ -54,12 +54,12 @@
         </article>
         <article class="stat">
           <span>Clips recibidos</span>
-          <strong>0</strong>
-          <small>0 pendientes de revisión</small>
+          <strong id="clips-recibidos">0</strong>
+          <small id="clips-pendientes">0 pendientes de revisión</small>
         </article>
         <article class="stat">
           <span>Clips aprobados</span>
-          <strong>0</strong>
+          <strong id="clips-aprobados">0</strong>
           <small>Contenido autorizado</small>
         </article>
         <article class="stat">
@@ -102,15 +102,16 @@
             <p>Revisa los clips y decide cuáles cumplen con las reglas de la campaña.</p>
           </div>
         </div>
-        <div class="review-ok">
+        <div class="review-ok" id="inbox-ok" hidden>
           <span class="dot" aria-hidden="true"></span>
           <strong>Todo revisado</strong>
           <span>No hay clips esperando una decisión.</span>
         </div>
-        <div class="empty">
+        <div class="empty" id="inbox-empty">
           <h3>Aún no hay clips recibidos.</h3>
-          <p>Cuando un creador envíe un clip para NOVA PLAY, aparecerá aquí.</p>
+          <p>Cuando un creador envíe un clip, aparecerá aquí.</p>
         </div>
+        <div id="inbox"></div>
       </section>
 
       <footer class="dash-footer">
@@ -120,6 +121,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=4"></script>
+  <script src="site.js?v=5"></script>
 </body>
 </html>

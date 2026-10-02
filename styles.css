@@ -1058,3 +1058,19 @@ h2 {
 button:disabled { opacity: 0.45; cursor: default; }
 .offer-bottom a, .offer-bottom button { position: relative; z-index: 2; }
 .offer-bottom { flex-direction: row; align-items: center; justify-content: space-between; }
+
+.form-card .field select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: #101114;
+  color: var(--paper);
+  padding: 0 12px;
+}
+#mis-clips, #inbox { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+.clip-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.clip-row a { color: var(--paper); word-break: break-all; }

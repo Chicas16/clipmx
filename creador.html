@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <header class="site-header">
@@ -60,7 +60,7 @@
         </article>
         <article class="stat">
           <span>Clips publicados</span>
-          <strong>0</strong>
+          <strong id="clips-enviados">0</strong>
           <small>0 pendientes de revisión</small>
         </article>
         <article class="stat">
@@ -136,6 +136,28 @@
         <div id="mias" hidden></div>
       </section>
 
+
+      <section class="block" id="enviar">
+        <div class="section-head">
+          <div>
+            <p class="kicker"><i></i>Tu clip</p>
+            <h2>Envía el enlace de tu clip.</h2>
+            <p>Se guarda en este navegador. La marca lo ve si abre su panel aquí mismo.</p>
+          </div>
+        </div>
+        <form id="clip-form" class="form-card">
+          <label class="field">Campaña
+            <select id="clip-campana" required></select>
+          </label>
+          <label class="field">Enlace del clip
+            <input id="clip-url" type="url" required placeholder="https://www.tiktok.com/">
+          </label>
+          <button class="btn btn-primary" type="submit">Enviar a revisión</button>
+          <p id="clip-msg" class="panel-note"></p>
+        </form>
+        <div id="mis-clips"></div>
+      </section>
+
       <section class="block payout" id="pagos">
         <div>
           <p class="kicker"><i></i>Tu pago</p>
@@ -162,6 +184,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=3"></script>
+  <script src="site.js?v=5"></script>
 </body>
 </html>
