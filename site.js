@@ -69,6 +69,64 @@
       select.appendChild(opt);
     });
   }
+  function openClipDb() {
+    return new Promise(function (resolve, reject) {
+      var req = indexedDB.open("clipmx", 1);
+      req.onupgradeneeded = function () {
+        if (!req.result.objectStoreNames.contains("videos")) req.result.createObjectStore("videos");
+      };
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error); };
+    });
+  }
+  function saveVideo(id, file) {
+    return openClipDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction("videos", "readwrite");
+        tx.objectStore("videos").put(file, id);
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+  function loadVideo(id) {
+    return openClipDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var req = db.transaction("videos", "readonly").objectStore("videos").get(id);
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { reject(req.error); };
+      });
+    });
+  }
+  function addPlayer(row, clip) {
+    if (clip.name) {
+      var name = document.createElement("p");
+      name.className = "panel-note";
+      name.textContent = clip.name;
+      row.appendChild(name);
+    }
+    if (!clip.file) {
+      if (clip.url) {
+        var link = document.createElement("a");
+        link.href = clip.url;
+        link.target = "_blank";
+        link.rel = "noreferrer";
+        link.textContent = clip.url;
+        row.appendChild(link);
+      }
+      return;
+    }
+    var video = document.createElement("video");
+    video.className = "clip-player";
+    video.controls = true;
+    video.playsInline = true;
+    row.appendChild(video);
+    loadVideo(clip.id).then(function (blob) {
+      if (blob) video.src = URL.createObjectURL(blob);
+    }).catch(function () {
+      video.remove();
+    });
+  }
   function paintMyClips() {
     var box = document.getElementById("mis-clips");
     var count = document.getElementById("clips-enviados");
@@ -80,16 +138,11 @@
       row.className = "offer";
       var title = document.createElement("h3");
       title.textContent = catalog[clip.campaign] ? catalog[clip.campaign].name : "Campaña";
-      var link = document.createElement("a");
-      link.href = clip.url;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-      link.textContent = clip.url;
       var state = document.createElement("p");
       state.className = "panel-note";
       state.textContent = clipStatus[clip.status] || "En revisión";
       row.appendChild(title);
-      row.appendChild(link);
+      addPlayer(row, clip);
       row.appendChild(state);
       box.appendChild(row);
     });
@@ -116,16 +169,11 @@
       row.className = "offer";
       var title = document.createElement("h3");
       title.textContent = catalog[clip.campaign] ? catalog[clip.campaign].name : "Campaña";
-      var link = document.createElement("a");
-      link.href = clip.url;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-      link.textContent = clip.url;
       var state = document.createElement("p");
       state.className = "panel-note";
       state.textContent = clipStatus[clip.status] || "En revisión";
       row.appendChild(title);
-      row.appendChild(link);
+      addPlayer(row, clip);
       row.appendChild(state);
       if (clip.status === "revision") {
         var actions = document.createElement("div");
@@ -164,19 +212,33 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       var campaign = document.getElementById("clip-campana").value;
-      var url = document.getElementById("clip-url").value.trim();
+      var input = document.getElementById("clip-file");
+      var file = input && input.files && input.files[0];
       var msg = document.getElementById("clip-msg");
-      if (!catalog[campaign] || !url) {
-        if (msg) msg.textContent = "Selecciona una campaña y pega un enlace.";
+      if (!catalog[campaign] || !file) {
+        if (msg) msg.textContent = "Selecciona una campaña y elige un video.";
         return;
       }
-      var clips = readClips();
-      clips.unshift({ id: String(Date.now()), campaign: campaign, url: url, status: "revision" });
-      saveClips(clips);
-      form.reset();
-      paintClipForm();
-      paintMyClips();
-      if (msg) msg.textContent = "Enviado a revisión. Ábrelo en el panel de marca de este mismo navegador.";
+      if (file.type && file.type.indexOf("video/") !== 0) {
+        if (msg) msg.textContent = "Ese archivo no es un video.";
+        return;
+      }
+      var id = String(Date.now());
+      var button = form.querySelector("button[type=submit]");
+      if (button) button.disabled = true;
+      saveVideo(id, file).then(function () {
+        var clips = readClips();
+        clips.unshift({ id: id, campaign: campaign, name: file.name, file: true, status: "revision" });
+        saveClips(clips);
+        form.reset();
+        paintClipForm();
+        paintMyClips();
+        if (msg) msg.textContent = "Video enviado a revisión. La marca lo ve en este mismo navegador.";
+      }).catch(function () {
+        if (msg) msg.textContent = "No se pudo guardar el video en este navegador.";
+      }).then(function () {
+        if (button) button.disabled = false;
+      });
     });
   }
 

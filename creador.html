@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <header class="site-header">
@@ -74,16 +74,16 @@
         <div class="section-head">
           <div>
             <p class="kicker"><i></i>Tu clip</p>
-            <h2>Envía el enlace de tu clip.</h2>
-            <p>Se guarda en este navegador. La marca lo ve si abre su panel aquí mismo.</p>
+            <h2>Sube el video de tu clip.</h2>
+            <p>Se guarda en este navegador. La marca lo reproduce si abre su panel aquí mismo.</p>
           </div>
         </div>
         <form id="clip-form" class="form-card">
           <label class="field">Campaña
             <select id="clip-campana" required></select>
           </label>
-          <label class="field">Enlace del clip
-            <input id="clip-url" type="url" required placeholder="https://www.tiktok.com/">
+          <label class="field">Video
+            <input id="clip-file" type="file" accept="video/*" required>
           </label>
           <button class="btn btn-primary" type="submit">Enviar a revisión</button>
           <p id="clip-msg" class="panel-note"></p>
@@ -184,6 +184,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=5"></script>
+  <script src="site.js?v=6"></script>
 </body>
 </html>
