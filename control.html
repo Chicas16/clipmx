@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipMX | Control</title>
+  <link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="ClipMX, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M6 0h2v14H6zM0 6h14v2H0z" fill="currentColor"/></svg>
+        </span>
+        <span>
+          <span class="brand-name">ClipMX</span>
+          <span class="brand-tag">Haz que cada vista cuente.</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="index.html#how">Cómo funciona</a>
+        <a href="index.html#campaigns">Campañas</a>
+        <a href="index.html#brands">Para marcas</a>
+        <a href="creador.html">Creador</a>
+        <a href="marca.html">Marca</a>
+        <a href="control.html" class="active">Control</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost header-cta" href="registro.html?rol=marca">Soy marca</a>
+        <a class="btn btn-primary header-cta" href="registro.html?rol=creador">Quiero ser creador</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div class="wrap">
+      <div class="welcome">
+        <div>
+          <p class="kicker"><i></i>Administración</p>
+          <h1>Control</h1>
+          <p>Panel del dueño. Solo ve lo que este navegador guardó. No hay servidor ni pagos reales.</p>
+        </div>
+      </div>
+      <p class="note">La marca aprueba o rechaza. Aquí solo decides como respaldo si pasaron 24 h sin respuesta, y puedes marcar un retiro como procesado (demo).</p>
+      <section class="block">
+        <div class="section-head"><h2>Cuenta</h2></div>
+        <div id="control-cuenta" class="form-card"></div>
+      </section>
+      <section class="block">
+        <div class="section-head"><h2>Campañas</h2></div>
+        <div id="control-campanas" class="form-card"></div>
+      </section>
+      <section class="block">
+        <div class="section-head"><h2>Creadas en este navegador</h2></div>
+        <div id="control-creadas" class="form-card"></div>
+      </section>
+      <section class="block">
+        <div class="section-head"><h2>Campañas seleccionadas</h2></div>
+        <div id="control-unidas" class="form-card"></div>
+      </section>
+      <section class="block">
+        <div class="section-head">
+          <div>
+            <h2>Plazo vencido</h2>
+            <p>Clips en revisión con más de 24 h. Solo entonces aparecen las acciones de respaldo.</p>
+          </div>
+        </div>
+        <div id="control-vencidos" class="stack"></div>
+      </section>
+      <section class="block">
+        <div class="section-head"><h2>Clips</h2></div>
+        <div id="control-clips" class="stack"></div>
+      </section>
+      <section class="block">
+        <div class="section-head">
+          <div>
+            <h2>Retiros</h2>
+            <p>Marcar procesado no envía dinero. Es una etiqueta de esta demo.</p>
+          </div>
+        </div>
+        <div id="control-retiros" class="stack"></div>
+      </section>
+      <footer class="dash-footer">
+        <span>ClipMX</span>
+        <span>Campañas para creadores, más claras.</span>
+        <a href="index.html">Volver al sitio principal ↗</a>
+      </footer>
+    </div>
+  </main>
+
+  <script src="site.js?v=7"></script>
+</body>
+</html>

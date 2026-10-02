@@ -168,7 +168,7 @@ h2 {
   gap: 48px;
   align-items: center;
 }
-.actions { display: flex; gap: 10px; margin-top: 28px; }
+.actions { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
 
 .film {
   justify-self: end;
@@ -1077,3 +1077,25 @@ button:disabled { opacity: 0.45; cursor: default; }
 
 .clip-player { width: 100%; max-height: 360px; background: #000; border-radius: 12px; margin-top: 8px; }
 .form-card .field input[type=file] { padding: 10px 0; }
+
+.header-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.header-actions .header-cta { margin-left: 0; }
+.role-banner { margin: 0 0 16px; }
+.role-banner a { text-decoration: underline; }
+.reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; }
+.reg-pick { display: block; width: 100%; text-align: left; padding: 18px; cursor: pointer; color: inherit; }
+.reg-pick h2 { font-size: 28px; margin: 6px 0; }
+.reg-pick p { color: var(--muted); margin-top: 6px; }
+.reg-pick.active { border-color: rgba(255, 77, 46, 0.7); }
+.brand-copy .actions { margin-top: 22px; }
+.brand-copy .actions .btn { margin-top: 0; }
+.stack { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.clip-row { flex-wrap: wrap; }
+@media (max-width: 1100px) {
+  .site-header .wrap { height: auto; min-height: 68px; flex-wrap: wrap; padding: 10px 0; row-gap: 10px; }
+  .nav-links { flex-wrap: wrap; row-gap: 8px; }
+}
+@media (max-width: 860px) {
+  .reg-grid { grid-template-columns: 1fr; }
+}
+

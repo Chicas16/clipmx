@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipMX | Registro</title>
+  <link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="ClipMX, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M6 0h2v14H6zM0 6h14v2H0z" fill="currentColor"/></svg>
+        </span>
+        <span>
+          <span class="brand-name">ClipMX</span>
+          <span class="brand-tag">Haz que cada vista cuente.</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="index.html#how">Cómo funciona</a>
+        <a href="index.html#campaigns">Campañas</a>
+        <a href="index.html#brands">Para marcas</a>
+        <a href="creador.html">Creador</a>
+        <a href="marca.html">Marca</a>
+        <a href="control.html">Control</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost header-cta" href="registro.html?rol=marca">Soy marca</a>
+        <a class="btn btn-primary header-cta" href="registro.html?rol=creador">Quiero ser creador</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div class="wrap">
+      <div class="welcome">
+        <div>
+          <p class="kicker"><i></i>Registro</p>
+          <h1>Elige un camino.</h1>
+          <p>Creador o marca. Son dos entradas distintas. Solo pedimos un nombre: sin correo y sin contraseña.</p>
+        </div>
+      </div>
+      <p class="note">Demo: se guarda en este navegador. Una cuenta por navegador. Si cambias de rol, reemplaza la anterior.</p>
+      <p id="cuenta-actual" class="panel-note"></p>
+      <div class="reg-grid">
+        <button class="panel reg-pick" type="button" data-rol-pick="creador">
+          <p class="kicker"><i></i>Creador</p>
+          <h2>Registrarme como creador</h2>
+          <p>Subes clips, ves vistas y puedes solicitar un retiro.</p>
+        </button>
+        <button class="panel reg-pick" type="button" data-rol-pick="marca">
+          <p class="kicker"><i></i>Marca</p>
+          <h2>Registrarme como marca</h2>
+          <p>Revisas los clips y los apruebas o los rechazas.</p>
+        </button>
+      </div>
+      <form id="cuenta-form" class="form-card" hidden style="margin-top:16px">
+        <h2 id="cuenta-heading">Registro</h2>
+        <label class="field">Nombre
+          <input id="cuenta-nombre" name="nombre" type="text" autocomplete="name" required maxlength="80">
+        </label>
+        <p class="note">En este navegador solo hay un rol. Registrarte de nuevo reemplaza el anterior.</p>
+        <button class="btn btn-primary" type="submit" style="margin-top:14px">Guardar registro</button>
+      </form>
+      <footer class="dash-footer">
+        <span>ClipMX</span>
+        <span>Campañas para creadores, más claras.</span>
+        <a href="index.html">Volver al sitio principal ↗</a>
+      </footer>
+    </div>
+  </main>
+
+  <script src="site.js?v=7"></script>
+</body>
+</html>

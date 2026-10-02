@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
   <header class="site-header">
@@ -24,9 +24,12 @@
         <a href="index.html#brands">Para marcas</a>
         <a href="#campanas" class="active">Creador</a>
         <a href="marca.html">Marca</a>
+        <a href="control.html">Control</a>
       </nav>
-      
-      <a class="btn btn-primary header-cta" href="#campanas">Quiero ser creador</a>
+      <div class="header-actions">
+        <a class="btn btn-ghost header-cta" href="registro.html?rol=marca">Soy marca</a>
+        <a class="btn btn-primary header-cta" href="registro.html?rol=creador">Quiero ser creador</a>
+      </div>
       <div class="user-chip" aria-label="Mi cuenta">
         <span class="avatar">LN</span>
         <span>Mi cuenta</span>
@@ -37,6 +40,7 @@
 
   <main class="dash">
     <div class="wrap">
+      <p id="rol-aviso" class="panel-note role-banner" data-rol="creador"></p>
       <div class="welcome">
         <div>
           <p class="kicker"><i></i>Panel del creador</p>
@@ -50,18 +54,18 @@
       <section class="stats" id="rendimiento" aria-label="Resumen de rendimiento">
         <article class="stat">
           <span>Total ganado</span>
-          <strong>$0 MXN</strong>
-          <small>0 clips aprobados</small>
+          <strong id="total-ganado">$0 MXN</strong>
+          <small id="ganado-nota">0 clips aprobados</small>
         </article>
         <article class="stat">
           <span>Vistas verificadas</span>
-          <strong>0</strong>
-          <small>0 clips aprobados</small>
+          <strong id="vistas-total">0</strong>
+          <small id="vistas-nota">0 clips aprobados</small>
         </article>
         <article class="stat">
           <span>Clips publicados</span>
           <strong id="clips-enviados">0</strong>
-          <small>0 pendientes de revisión</small>
+          <small id="clips-nota">0 pendientes de revisión</small>
         </article>
         <article class="stat">
           <span>Campañas activas</span>
@@ -75,7 +79,7 @@
           <div>
             <p class="kicker"><i></i>Tu clip</p>
             <h2>Sube el video de tu clip.</h2>
-            <p>Se guarda en este navegador. La marca lo reproduce si abre su panel aquí mismo.</p>
+            <p>Se guarda en este navegador. La marca tiene 24 h para aprobar o rechazar. Si no responde, Control puede decidir como respaldo.</p>
           </div>
         </div>
         <form id="clip-form" class="form-card">
@@ -86,9 +90,12 @@
             <input id="clip-file" type="file" accept="video/*" required>
           </label>
           <button class="btn btn-primary" type="submit">Enviar a revisión</button>
+          <p id="clip-final" class="panel-note"></p>
           <p id="clip-msg" class="panel-note"></p>
         </form>
+        <button type="button" id="toggle-rechazados" class="btn btn-ghost btn-small">Rechazados (0)</button>
         <div id="mis-clips"></div>
+        <div id="clips-rechazados" hidden></div>
       </section>
 
       <section class="block" id="campanas">
@@ -167,13 +174,25 @@
         <div class="payout-card">
           <div class="payout-line">
             <span>Total ganado</span>
-            <b>$0.00 MXN</b>
+            <b id="payout-total">$0 MXN</b>
+          </div>
+          <div class="payout-line">
+            <span>Saldo disponible</span>
+            <b id="saldo-disponible">$0 MXN</b>
           </div>
           <div class="meter" aria-label="Progreso de la meta de ganancias, en cero"><span style="width:0%"></span></div>
           <div class="payout-line muted">
             <span>Meta de ganancias</span>
             <span>$2,000 MXN</span>
           </div>
+          <div class="clip-row" style="margin-top:12px">
+            <button class="btn btn-primary btn-small" type="button" id="pedir-retiro" disabled>Solicitar retiro</button>
+            <button class="btn btn-ghost btn-small" type="button" id="sumar-vistas">+ 10,000 vistas (demo)</button>
+          </div>
+          <p id="retiro-msg" class="panel-note"></p>
+          <p id="vistas-msg" class="panel-note"></p>
+          <p class="note">Demo: no hay pago real. 10,000 vistas son $250 MXN ($25 por cada 1,000). El mínimo para solicitar retiro es $10 MXN.</p>
+          <div id="mis-retiros"></div>
         </div>
       </section>
 
@@ -184,6 +203,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=6"></script>
+  <script src="site.js?v=7"></script>
 </body>
 </html>
