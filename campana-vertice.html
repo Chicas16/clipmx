@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Momentos que merecen un clip</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="site-header">
@@ -50,7 +50,7 @@
           <hr>
           <div class="earn-line"><span>Presupuesto restante</span><b>$25,000 MXN</b></div>
           <div class="earn-line"><span>Duración</span><b>21 días</b></div>
-          <a class="btn btn-primary" href="creador.html">Participar en campaña <span>↗</span></a>
+          <a class="btn btn-primary" href="creador.html?unirse=vertice">Participar en campaña <span>↗</span></a>
           <small class="demo-note">Datos de demostración</small>
         </aside>
       </div>
@@ -60,7 +60,7 @@
             <p class="kicker"><i></i>01 · Contenido de referencia</p>
             <h2>Mira qué tipo de clip buscamos.</h2>
             <div class="ref-card" role="group" aria-label="Marcador de posición. No hay un archivo de video.">
-              <div class="ref-stage" aria-hidden="true">▶</div>
+              <button class="ref-stage" type="button" data-play aria-label="Reproducir referencia">▶</button>
               <div>
                 <strong>VÉRTICE · Video de referencia</strong>
                 
@@ -99,7 +99,7 @@
           <div class="side-card">
             <h3>¿Listo para crear?</h3>
             <p>Participa, publica tu primer clip y sigue tus vistas desde tu panel.</p>
-            <a class="btn btn-ghost" href="creador.html">Participar en campaña</a>
+            <a class="btn btn-ghost" href="creador.html?unirse=vertice">Participar en campaña</a>
           </div>
         </aside>
       </div>
@@ -110,5 +110,6 @@
       </footer>
     </div>
   </main>
+  <script src="site.js"></script>
 </body>
 </html>

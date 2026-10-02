@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="site-header">
@@ -76,10 +76,11 @@
             <h2>Campañas disponibles</h2>
           </div>
           <div class="tabs" role="tablist" aria-label="Campañas">
-            <button class="active" type="button" aria-selected="true">Disponibles</button>
-            <button type="button" aria-selected="false">Mis campañas</button>
+            <button class="active" type="button" data-panel="disponibles" aria-selected="true">Disponibles</button>
+            <button type="button" data-panel="mias" aria-selected="false">Mis campañas</button>
           </div>
         </div>
+        <div id="disponibles">
         <div class="cards-3">
           <article class="offer featured">
             <div class="offer-top">
@@ -127,6 +128,8 @@
             </div>
           </article>
         </div>
+        </div>
+        <div id="mias" hidden></div>
       </section>
 
       <section class="block payout" id="pagos">
@@ -155,5 +158,6 @@
       </footer>
     </div>
   </main>
+  <script src="site.js"></script>
 </body>
 </html>

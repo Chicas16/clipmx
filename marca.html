@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="site-header">
@@ -78,9 +78,9 @@
               <p class="subline">NOVA PLAY · Gaming · 30 días</p>
             </div>
             <div class="controls">
-              <b class="live">● Activa</b>
-              <button class="btn btn-ghost btn-small" type="button">Pausar</button>
-              <button class="btn btn-danger btn-small" type="button">Finalizar</button>
+              <b class="live" data-estado>● Activa</b>
+              <button class="btn btn-ghost btn-small" type="button" data-action="pausar">Pausar</button>
+              <button class="btn btn-danger btn-small" type="button" data-action="finalizar">Finalizar</button>
             </div>
           </div>
           <div class="budget">
@@ -120,5 +120,6 @@
       </footer>
     </div>
   </main>
+  <script src="site.js"></script>
 </body>
 </html>

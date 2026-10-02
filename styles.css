@@ -1051,3 +1051,8 @@ h2 {
 @media (max-width: 860px) {
   .form-grid { grid-template-columns: 1fr; }
 }
+
+.offer { position: relative; }
+.offer-bottom a::after { content: ""; position: absolute; inset: 0; }
+.panel-note { color: var(--muted); margin: 8px 0 0; }
+button:disabled { opacity: 0.45; cursor: default; }
