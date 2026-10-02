@@ -942,9 +942,52 @@
   }
   function syncHeaderOffset() {
     var header = document.querySelector(".site-header");
-    if (!header) return;
+    if (!header) return 0;
     document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    return header.offsetHeight;
   }
   syncHeaderOffset();
   window.addEventListener("resize", syncHeaderOffset);
+
+  var anchorIds = { how: true, campaigns: true, brands: true };
+  function alignAnchor(id) {
+    if (!anchorIds[id]) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    var headerH = syncHeaderOffset();
+    var y = el.getBoundingClientRect().top + window.scrollY - headerH - 16;
+    window.scrollTo(0, Math.max(0, y));
+  }
+  function hashId() {
+    return decodeURIComponent((location.hash || "").replace(/^#/, ""));
+  }
+  function alignFromHash() {
+    var id = hashId();
+    if (!anchorIds[id]) return;
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    alignAnchor(id);
+  }
+  document.addEventListener("click", function (event) {
+    var node = event.target;
+    if (!node || !node.closest) return;
+    var link = node.closest("a[href]");
+    if (!link) return;
+    var href = link.getAttribute("href") || "";
+    var hashIndex = href.indexOf("#");
+    if (hashIndex < 0) return;
+    var id = decodeURIComponent(href.slice(hashIndex + 1));
+    if (!anchorIds[id] || !document.getElementById(id)) return;
+    var url;
+    try { url = new URL(link.href, location.href); } catch (err) { return; }
+    if (url.pathname !== location.pathname) return;
+    event.preventDefault();
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+    alignAnchor(id);
+  });
+  window.addEventListener("hashchange", alignFromHash);
+  window.addEventListener("popstate", alignFromHash);
+  alignFromHash();
+  window.addEventListener("load", alignFromHash);
+  window.addEventListener("pageshow", alignFromHash);
 })();

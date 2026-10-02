@@ -24,6 +24,7 @@
 
 * { box-sizing: border-box; }
 html { background: var(--bg); color-scheme: dark; scroll-padding-top: calc(var(--header-h) + 16px); }
+#how, #campaigns, #brands { scroll-margin-top: 0; }
 body {
   margin: 0;
   min-height: 100vh;
