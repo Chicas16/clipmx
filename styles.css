@@ -769,26 +769,40 @@ h2 {
 
 .drift {
   position: absolute;
-  inset: -14%;
+  inset: -32%;
   z-index: 0;
   pointer-events: none;
   transform-origin: 50% 45%;
-  animation: kenburns 26s ease-in-out infinite alternate;
+  animation: kenburns 8s ease-in-out infinite;
   will-change: transform;
 }
 .drift svg { width: 100%; height: 100%; display: block; }
-.drift-hero { animation-duration: 34s; }
-.drift-film { animation-duration: 18s; animation-delay: -4s; transform-origin: 70% 30%; }
-.drift-nova { animation-duration: 22s; transform-origin: 20% 80%; }
-.drift-vertice { animation-duration: 28s; animation-direction: alternate-reverse; transform-origin: 40% 20%; }
-.drift-norte { animation-duration: 24s; animation-delay: -8s; transform-origin: 80% 40%; }
+.drift-hero { animation-delay: -1s; }
+.drift-film { animation-delay: -3s; transform-origin: 70% 30%; }
+.drift-nova { animation-delay: 0s; transform-origin: 20% 80%; }
+.drift-vertice { animation-delay: -2.5s; transform-origin: 40% 20%; }
+.drift-norte { animation-delay: -5s; transform-origin: 80% 40%; }
+
+.film-card { animation: card-glow 8s ease-in-out infinite; }
+.film .meter { position: relative; }
+.film .meter::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  animation: meter-sweep 8s linear infinite;
+}
 
 .drift-veil {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(9, 10, 12, 0.05) 10%, rgba(9, 10, 12, 0.55) 78%, rgba(9, 10, 12, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(9, 10, 12, 0.02) 0%, rgba(9, 10, 12, 0.28) 55%, rgba(9, 10, 12, 0.78) 100%);
 }
 .film-scene .finder,
 .film-scene .film-copy { z-index: 2; }
@@ -799,7 +813,7 @@ h2 {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(9, 10, 12, 0.05) 20%, rgba(9, 10, 12, 0.78) 100%);
+  background: linear-gradient(180deg, rgba(9, 10, 12, 0.02) 0%, rgba(9, 10, 12, 0.2) 46%, rgba(9, 10, 12, 0.84) 100%);
 }
 .cover-nova::after,
 .cover-vertice::after,
@@ -809,8 +823,17 @@ h2 {
 .cover > em { position: relative; z-index: 3; }
 
 @keyframes kenburns {
-  0% { transform: scale(1.05) translate3d(-2.2%, -1.4%, 0); }
-  100% { transform: scale(1.18) translate3d(2.6%, 1.8%, 0); }
+  0% { transform: scale(1.02) translate3d(-12%, -8%, 0); }
+  50% { transform: scale(1.42) translate3d(12%, 9%, 0); }
+  100% { transform: scale(1.02) translate3d(-12%, -8%, 0); }
+}
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 77, 46, 0); }
+  50% { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 0 36px 6px rgba(255, 77, 46, 0.55); }
+}
+@keyframes meter-sweep {
+  0% { transform: translateX(-130%); }
+  100% { transform: translateX(320%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -819,6 +842,8 @@ h2 {
     transform: none;
     inset: 0;
   }
+  .film-card { animation: none; }
+  .film .meter::after { animation: none; opacity: 0; }
 }
 
 /* Campaign detail and local campaign form */
