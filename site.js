@@ -933,7 +933,6 @@
   paintBrandClips();
   bindRegistro();
   paintControl();
-  bindSectionCenter();
   if (document.getElementById("inbox") || document.getElementById("mis-clips") || document.getElementById("control-cuenta")) {
     setInterval(function () {
       paintMyClips();
@@ -941,48 +940,11 @@
       paintControl();
     }, 60000);
   }
-  function bindSectionCenter() {
-    var anchors = { how: true, campaigns: true, brands: true };
-    function centerSection(id, behavior) {
-      var section = document.getElementById(id);
-      if (!section) return;
-      var header = document.querySelector(".site-header");
-      var headerH = header ? header.offsetHeight : 0;
-      var title = section.querySelector("h2") || section;
-      var rect = title.getBoundingClientRect();
-      var space = window.innerHeight - headerH;
-      var topInView = headerH + Math.max(18, (space - rect.height) / 2);
-      var y = window.scrollY + rect.top - topInView;
-      window.scrollTo({ top: Math.max(0, y), behavior: behavior || "auto" });
-    }
-    document.addEventListener("click", function (event) {
-      var node = event.target;
-      if (!node || !node.closest) return;
-      var link = node.closest("a[href]");
-      if (!link) return;
-      var href = link.getAttribute("href") || "";
-      var hashIndex = href.indexOf("#");
-      if (hashIndex < 0) return;
-      var id = href.slice(hashIndex + 1);
-      if (!anchors[id] || !document.getElementById(id)) return;
-      var url = new URL(link.href, location.href);
-      if (url.pathname !== location.pathname) return;
-      event.preventDefault();
-      if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
-      centerSection(id, "smooth");
-    });
-    window.addEventListener("hashchange", function () {
-      var id = location.hash.slice(1);
-      if (anchors[id]) centerSection(id, "auto");
-    });
-    var initial = location.hash.slice(1);
-    if (!anchors[initial]) return;
-    function fixInitial() {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { centerSection(initial, "auto"); });
-      });
-    }
-    if (document.readyState === "complete") fixInitial();
-    else window.addEventListener("load", fixInitial);
+  function syncHeaderOffset() {
+    var header = document.querySelector(".site-header");
+    if (!header) return;
+    document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
   }
+  syncHeaderOffset();
+  window.addEventListener("resize", syncHeaderOffset);
 })();
