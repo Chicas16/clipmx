@@ -1056,3 +1056,5 @@ h2 {
 .offer-bottom a::after { content: ""; position: absolute; inset: 0; }
 .panel-note { color: var(--muted); margin: 8px 0 0; }
 button:disabled { opacity: 0.45; cursor: default; }
+.offer-bottom a, .offer-bottom button { position: relative; z-index: 2; }
+.offer-bottom { flex-direction: row; align-items: center; justify-content: space-between; }

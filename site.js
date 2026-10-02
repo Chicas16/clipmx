@@ -74,12 +74,35 @@
       });
       mias.appendChild(grid);
     }
+    function markButtons() {
+      var mine = readJoined();
+      document.querySelectorAll("[data-join]").forEach(function (button) {
+        var on = mine.indexOf(button.getAttribute("data-join")) >= 0;
+        button.textContent = on ? "Seleccionada" : "Seleccionar";
+        button.disabled = on;
+      });
+    }
+    function choose(id) {
+      if (!catalog[id]) return;
+      var list = readJoined();
+      if (list.indexOf(id) < 0) list.push(id);
+      localStorage.setItem(joinedKey, JSON.stringify(list));
+      paintMine();
+      markButtons();
+      show("mias");
+    }
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
         show(tab.getAttribute("data-panel"));
       });
     });
+    document.querySelectorAll("[data-join]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        choose(button.getAttribute("data-join"));
+      });
+    });
     paintMine();
+    markButtons();
     show(join && catalog[join] ? "mias" : "disponibles");
   }
 
