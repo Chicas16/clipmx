@@ -16,6 +16,23 @@
     }
   }
 
+
+  function paintRegistered() {
+    var mine = readJoined().filter(function (id) { return catalog[id]; });
+    var line = document.getElementById("registro");
+    if (line) {
+      line.textContent = mine.length
+        ? "Estás registrado en " + mine.map(function (id) { return catalog[id].name; }).join(", ") + "."
+        : "";
+    }
+    document.querySelectorAll("a[href*='unirse=']").forEach(function (link) {
+      var id = (link.getAttribute("href").split("unirse=")[1] || "").split("&")[0];
+      if (mine.indexOf(id) < 0) return;
+      link.textContent = "Ya estás registrado";
+      link.setAttribute("href", "creador.html#campanas");
+    });
+  }
+
   var params = new URLSearchParams(location.search);
   var join = params.get("unirse");
   if (join && catalog[join]) {
@@ -89,6 +106,7 @@
       localStorage.setItem(joinedKey, JSON.stringify(list));
       paintMine();
       markButtons();
+      paintRegistered();
       show("mias");
     }
     tabs.forEach(function (tab) {
@@ -103,7 +121,8 @@
     });
     paintMine();
     markButtons();
-    show(join && catalog[join] ? "mias" : "disponibles");
+    paintRegistered();
+    show((join && catalog[join]) || readJoined().length ? "mias" : "disponibles");
   }
 
   var badge = document.querySelector("[data-estado]");
@@ -151,4 +170,5 @@
       button.textContent = "—";
     });
   });
+  paintRegistered();
 })();
