@@ -954,3 +954,45 @@ h2 {
   font-size: 22px;
   letter-spacing: -0.03em;
 }
+
+
+/* Create-campaign layout: two columns on desktop, stacked fields, stacked on narrow screens. */
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: 24px;
+  align-items: start;
+}
+.form-column,
+#crear-form,
+.form-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.form-card {
+  grid-template-columns: none;
+}
+.form-card .field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.form-card .field input,
+.form-card .field textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.preview-card { align-self: start; }
+@media (max-width: 860px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
