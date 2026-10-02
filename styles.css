@@ -6,8 +6,8 @@
   --line: rgba(244, 242, 235, 0.1);
   --line-strong: rgba(244, 242, 235, 0.16);
   --text: #f4f2eb;
-  --muted: #a39e93;
-  --faint: #746f67;
+  --muted: #d2cdc2;
+  --faint: #b7b1a5;
   --ember: #ff4d2e;
   --good: #8ee7a4;
   --good-dim: rgba(142, 231, 164, 0.12);
@@ -986,6 +986,11 @@ h2 {
   font: inherit;
 }
 .field textarea { min-height: 110px; resize: vertical; }
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
 .note {
   margin-top: 14px;
   color: var(--muted);
