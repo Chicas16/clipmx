@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipMX | Haz que cada vista cuente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M6 0h2v14H6zM0 6h14v2H0z" fill="currentColor"/></svg>
+        </span>
+        <span>
+          <span class="brand-name">ClipMX</span>
+          <span class="brand-tag">Haz que cada vista cuente.</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Panel de marca">
+        <a href="#campanas">Campañas</a>
+        <a href="#clips">Clips</a>
+        <a href="#resultados">Resultados</a>
+        <a href="creador.html">Creador</a>
+        <a href="index.html">Inicio</a>
+      </nav>
+      <div class="user-chip" aria-label="Cuenta de marca">
+        <span class="avatar">N</span>
+        <span>NOVA PLAY</span>
+        <span class="chev">⌄</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div class="wrap">
+      <div class="welcome">
+        <div>
+          <p class="kicker"><i></i>Panel de marca</p>
+          <h1>Hola, NOVA PLAY.</h1>
+          <p>Gestiona tus campañas, revisa clips y mide el contenido que está funcionando.</p>
+        </div>
+        <a class="btn btn-primary" href="#campanas">+ Crear campaña</a>
+      </div>
+
+      <section class="stats" id="resultados" aria-label="Resumen">
+        <article class="stat">
+          <span>Campañas activas</span>
+          <strong>1</strong>
+          <small>Nova Play · Gaming</small>
+        </article>
+        <article class="stat">
+          <span>Clips recibidos</span>
+          <strong>0</strong>
+          <small>0 pendientes de revisión</small>
+        </article>
+        <article class="stat">
+          <span>Clips aprobados</span>
+          <strong>0</strong>
+          <small>Contenido autorizado</small>
+        </article>
+        <article class="stat">
+          <span>Vistas verificadas</span>
+          <strong>0</strong>
+          <small>Contenido aprobado</small>
+        </article>
+      </section>
+
+      <section class="block" id="campanas">
+        <article class="campaign-panel">
+          <div class="campaign-head">
+            <div>
+              <p class="kicker"><i></i>Campaña de demostración</p>
+              <h2>Clips de gaming para TikTok</h2>
+              <p class="subline">NOVA PLAY · Gaming · 30 días</p>
+            </div>
+            <div class="controls">
+              <b class="live">● Activa</b>
+              <button class="btn btn-ghost btn-small" type="button">Pausar</button>
+              <button class="btn btn-danger btn-small" type="button">Finalizar</button>
+            </div>
+          </div>
+          <div class="budget">
+            <div class="budget-top">
+              <span>Presupuesto utilizado</span>
+              <strong>0 MXN de $48,000 MXN</strong>
+            </div>
+            <div class="meter" aria-label="Presupuesto utilizado al 0 por ciento"><span style="width:0%"></span></div>
+            <small class="fine">$25 MXN por cada 1,000 vistas válidas.</small>
+          </div>
+        </article>
+      </section>
+
+      <section class="block" id="clips">
+        <div class="section-head">
+          <div>
+            <p class="kicker"><i></i>Revisión de contenido</p>
+            <h2>Clips de creadores</h2>
+            <p>Revisa los clips y decide cuáles cumplen con las reglas de la campaña.</p>
+          </div>
+        </div>
+        <div class="review-ok">
+          <span class="dot" aria-hidden="true"></span>
+          <strong>Todo revisado</strong>
+          <span>No hay clips esperando una decisión.</span>
+        </div>
+        <div class="empty">
+          <h3>Aún no hay clips recibidos.</h3>
+          <p>Cuando un creador envíe un clip para NOVA PLAY, aparecerá aquí.</p>
+        </div>
+      </section>
+
+      <footer class="dash-footer">
+        <span>ClipMX</span>
+        <span>Herramientas para marcas y creadores.</span>
+        <a href="index.html">Volver al sitio principal ↗</a>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
