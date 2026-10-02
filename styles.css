@@ -836,6 +836,44 @@ h2 {
   100% { transform: translateX(320%); }
 }
 
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  left: -10%;
+  top: 18%;
+  background: radial-gradient(circle, rgba(255,77,46,0.85), rgba(255,77,46,0) 70%);
+  filter: blur(2px);
+  animation: orb 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes orb {
+  0% { transform: translateX(0) scale(0.8); opacity: 0.45; }
+  50% { transform: translateX(70vw) scale(1.15); opacity: 1; }
+  100% { transform: translateX(0) scale(0.8); opacity: 0.45; }
+}
+.scale-track { position: relative; overflow: hidden; }
+.scale-track::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: #ff4d2e;
+  box-shadow: 0 0 16px #ff4d2e;
+  animation: runner 4s linear infinite;
+}
+@keyframes runner {
+  0% { left: 0; }
+  100% { left: calc(100% - 14px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drift {
     animation: none;
@@ -844,6 +882,7 @@ h2 {
   }
   .film-card { animation: none; }
   .film .meter::after { animation: none; opacity: 0; }
+  .hero::after, .scale-track::after { animation: none; }
 }
 
 /* Campaign detail and local campaign form */
