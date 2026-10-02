@@ -956,16 +956,26 @@
     if (!el) return;
     var headerH = syncHeaderOffset();
     var y = el.getBoundingClientRect().top + window.scrollY - headerH - 16;
-    window.scrollTo(0, Math.max(0, y));
+    var top = Math.max(0, Math.round(y));
+    if (Math.abs(window.scrollY - top) > 1) window.scrollTo(0, top);
   }
   function hashId() {
     return decodeURIComponent((location.hash || "").replace(/^#/, ""));
   }
+  var alignTicket = 0;
   function alignFromHash() {
     var id = hashId();
     if (!anchorIds[id]) return;
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    var ticket = ++alignTicket;
     alignAnchor(id);
+    // One correction after the browser's own fragment scroll. Do not scroll again
+    // toward a later section: the target is this kicker, 16px under the header.
+    requestAnimationFrame(function () {
+      if (ticket !== alignTicket) return;
+      if (hashId() !== id) return;
+      alignAnchor(id);
+    });
   }
   document.addEventListener("click", function (event) {
     var node = event.target;
@@ -983,11 +993,10 @@
     event.preventDefault();
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
-    alignAnchor(id);
+    alignFromHash();
   });
   window.addEventListener("hashchange", alignFromHash);
   window.addEventListener("popstate", alignFromHash);
-  alignFromHash();
   window.addEventListener("load", alignFromHash);
   window.addEventListener("pageshow", alignFromHash);
 })();

@@ -25,6 +25,12 @@
 * { box-sizing: border-box; }
 html { background: var(--bg); color-scheme: dark; scroll-padding-top: calc(var(--header-h) + 16px); }
 #how, #campaigns, #brands { scroll-margin-top: 0; }
+/* #how is the kicker, 72px below the section top. Filling the viewport
+   from that kicker keeps Campañas at the bottom instead of mid-screen. */
+.section-how {
+  box-sizing: border-box;
+  min-height: calc(100vh - var(--header-h) + 8px);
+}
 body {
   margin: 0;
   min-height: 100vh;
