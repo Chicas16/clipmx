@@ -874,16 +874,7 @@ h2 {
   100% { left: calc(100% - 14px); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .drift {
-    animation: none;
-    transform: none;
-    inset: 0;
-  }
-  .film-card { animation: none; }
-  .film .meter::after { animation: none; opacity: 0; }
-  .hero::after, .scale-track::after { animation: none; }
-}
+/* Motion stays on: the user asked to see it. */
 
 /* Campaign detail and local campaign form */
 .back-link {

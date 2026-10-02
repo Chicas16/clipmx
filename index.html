@@ -4,7 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
+<style>
+  .move-proof { height: 8px; border-radius: 99px; background: #2a2c31; overflow: hidden; margin: 18px 0 0; }
+  .move-proof span { display: block; height: 100%; width: 30%; background: #ff4d2e; animation: proof 2.4s ease-in-out infinite; }
+  @keyframes proof { 0% { transform: translateX(0); } 50% { transform: translateX(230%); } 100% { transform: translateX(0); } }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -62,6 +67,7 @@
         <div>
           <p class="kicker"><i></i>La plataforma de campañas para creadores</p>
           <h1>Haz que cada vista cuente.</h1>
+          <div class="move-proof" aria-hidden="true"><span></span></div>
           <p class="lead">Crea clips para campañas reales. Conoce cuánto pagan, sigue tus vistas verificadas y gana por los resultados que generas.</p>
           <div class="actions">
             <a class="btn btn-primary" href="creador.html">Quiero ser creador <span>↗</span></a>
