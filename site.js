@@ -133,17 +133,17 @@
       if (state === "pausada") {
         badge.textContent = "● Pausada";
         pause.textContent = "Reanudar";
-        pause.disabled = false;
-        endBtn.disabled = false;
+        pause.hidden = false;
+        endBtn.hidden = false;
       } else if (state === "finalizada") {
         badge.textContent = "● Finalizada";
-        pause.disabled = true;
-        endBtn.disabled = true;
+        pause.hidden = true;
+        endBtn.hidden = true;
       } else {
         badge.textContent = "● Activa";
         pause.textContent = "Pausar";
-        pause.disabled = false;
-        endBtn.disabled = false;
+        pause.hidden = false;
+        endBtn.hidden = false;
       }
     }
     var state = localStorage.getItem(statusKey) || "activa";
