@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Historias cortas para Reels</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header class="site-header">
@@ -44,7 +44,12 @@
           <strong>$22 MXN</strong>
           <small>por cada 1,000 vistas</small>
           <hr>
-          <div class="earn-line"><span>Presupuesto restante</span><b>$31,500 MXN</b></div>
+          <div class="earn-line"><span>Presupuesto restante</span><b data-remain="norte">$31,500 MXN</b></div>
+          <div class="pct-bar" data-budget="norte" data-kind="queda">
+            <div class="pct-bar-top"><span>Queda</span><b data-pct>100%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Queda 100% del presupuesto"><span style="width:100%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Presupuesto usado</span><b data-pct-alt>0%</b></div>
+          </div>
           <div class="earn-line"><span>Duración</span><b>15 días</b></div>
           <a class="btn btn-primary" href="creador.html?unirse=norte">Participar en campaña <span>↗</span></a>
           <small class="demo-note">Datos de demostración</small>
@@ -90,7 +95,12 @@
             <p class="kicker"><i></i>Detalles</p>
             <div class="side-row"><span>Plataforma</span><strong>Shorts</strong></div>
             <div class="side-row"><span>Tarifa</span><strong>$22 / 1,000 vistas</strong></div>
-            <div class="side-row"><span>Presupuesto</span><strong>$31,500 MXN</strong></div>
+            <div class="side-row"><span>Presupuesto</span><strong data-remain="norte">$31,500 MXN</strong></div>
+            <div class="pct-bar" data-budget="norte" data-kind="queda">
+            <div class="pct-bar-top"><span>Queda</span><b data-pct>100%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Queda 100% del presupuesto"><span style="width:100%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Presupuesto usado</span><b data-pct-alt>0%</b></div>
+          </div>
           </div>
           <div class="side-card">
             <h3>¿Listo para crear?</h3>
@@ -106,6 +116,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=7"></script>
+  <script src="site.js?v=8"></script>
 </body>
 </html>

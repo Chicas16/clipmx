@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Crea una campaña</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header class="site-header">
@@ -67,6 +67,11 @@
           <h2 id="preview-nombre">Nombre de la campaña</h2>
           <p class="lead" id="preview-descripcion">La descripción se verá aquí.</p>
           <strong class="preview-rate" id="preview-tarifa">$25 MXN por 1,000 vistas</strong>
+          <div class="pct-bar" id="preview-budget" hidden>
+            <div class="pct-bar-top"><span>Presupuesto usado</span><b>0%</b></div>
+            <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Presupuesto usado al 0 por ciento"><span style="width:0%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Queda</span><b>100%</b></div>
+          </div>
         </aside>
       </div>
       <footer class="dash-footer">
@@ -93,6 +98,8 @@
         show("preview-nombre", nombre.value, "Nombre de la campaña");
         show("preview-descripcion", descripcion.value, "La descripción se verá aquí.");
         show("preview-tarifa", tarifa.value, "$25 MXN por 1,000 vistas");
+        var budgetBar = document.getElementById("preview-budget");
+        if (budgetBar) budgetBar.hidden = !presupuesto.value.trim();
       }
       function readSaved() {
         try {

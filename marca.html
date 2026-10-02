@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header class="site-header">
@@ -79,12 +79,15 @@
               <button class="btn btn-danger btn-small" type="button" data-action="finalizar">Finalizar</button>
             </div>
           </div>
-          <div class="budget">
+          <div class="budget" data-budget="nova" data-kind="usado">
+            <div class="pct-bar">
+            <div class="pct-bar-top"><span>Presupuesto utilizado</span><b data-pct>0%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Presupuesto utilizado al 0 por ciento"><span style="width:0%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Queda</span><b data-pct-alt>100%</b></div>
+          </div>
             <div class="budget-top">
-              <span>Presupuesto utilizado</span>
-              <strong>0 MXN de $48,000 MXN</strong>
+              <span data-budget-money>0 MXN de $48,000 MXN</span>
             </div>
-            <div class="meter" aria-label="Presupuesto utilizado al 0 por ciento"><span style="width:0%"></span></div>
             <small class="fine">$25 MXN por cada 1,000 vistas válidas.</small>
           </div>
         </article>
@@ -117,6 +120,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=7"></script>
+  <script src="site.js?v=8"></script>
 </body>
 </html>

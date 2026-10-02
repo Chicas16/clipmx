@@ -9,9 +9,9 @@
   var HOUR = 60 * 60 * 1000;
   var MIN_RETIRO = 10;
   var catalog = {
-    nova: { name: "NOVA PLAY", title: "Clips de gaming para TikTok", href: "campana-nova.html" },
-    vertice: { name: "VÉRTICE", title: "Momentos que merecen un clip", href: "campana-vertice.html" },
-    norte: { name: "NORTE 7", title: "Historias cortas para Reels", href: "campana-norte.html" }
+    nova: { name: "NOVA PLAY", title: "Clips de gaming para TikTok", href: "campana-nova.html", budget: 48000, rate: 25 },
+    vertice: { name: "VÉRTICE", title: "Momentos que merecen un clip", href: "campana-vertice.html", budget: 25000, rate: 18 },
+    norte: { name: "NORTE 7", title: "Historias cortas para Reels", href: "campana-norte.html", budget: 31500, rate: 22 }
   };
   var clipStatus = { revision: "En revisión", aprobado: "Aprobado", rechazado: "Rechazado" };
 
@@ -98,6 +98,63 @@
     var body = "$" + formatInt(whole);
     if (frac) body += "." + String(frac).padStart(2, "0");
     return (neg ? "-" : "") + body + " MXN";
+  }
+  function formatPct(value) {
+    var n = Math.round(Number(value) * 10) / 10;
+    if (!isFinite(n) || n < 0) n = 0;
+    if (n > 100) n = 100;
+    if (Math.abs(n - Math.round(n)) < 0.05) return String(Math.round(n)) + "%";
+    return n.toFixed(1) + "%";
+  }
+  function campaignSpend(id) {
+    var item = catalog[id];
+    if (!item || !item.rate) return 0;
+    return approvedClips().reduce(function (sum, clip) {
+      if (clip.campaign !== id) return sum;
+      return sum + clipViews(clip) * item.rate / 1000;
+    }, 0);
+  }
+  function budgetFigures(id) {
+    var item = catalog[id];
+    if (!item || !item.budget) return null;
+    var spent = campaignSpend(id);
+    if (!isFinite(spent) || spent < 0) spent = 0;
+    var total = item.budget;
+    if (spent > total) spent = total;
+    var used = total > 0 ? (spent / total) * 100 : 0;
+    return { spent: spent, total: total, used: used, left: 100 - used, remaining: total - spent };
+  }
+  function paintBudgetBars() {
+    document.querySelectorAll("[data-budget]").forEach(function (node) {
+      var figs = budgetFigures(node.getAttribute("data-budget"));
+      if (!figs) return;
+      var kind = node.getAttribute("data-kind") === "usado" ? "usado" : "queda";
+      var primary = kind === "usado" ? figs.used : figs.left;
+      var alt = kind === "usado" ? figs.left : figs.used;
+      var primaryText = formatPct(primary);
+      var altText = formatPct(alt);
+      var pctEl = node.querySelector("[data-pct]");
+      var altEl = node.querySelector("[data-pct-alt]");
+      if (pctEl) pctEl.textContent = primaryText;
+      if (altEl) altEl.textContent = altText;
+      var meter = node.querySelector("[data-meter]");
+      var fill = meter && meter.querySelector("span");
+      var width = primary > 0 && primary < 2 ? 2 : primary;
+      if (fill) fill.style.width = width + "%";
+      if (meter) {
+        meter.setAttribute("aria-valuenow", String(Math.round(primary)));
+        meter.setAttribute("aria-label", kind === "usado"
+          ? "Presupuesto usado al " + primaryText
+          : "Queda " + primaryText + " del presupuesto");
+      }
+      var money = node.querySelector("[data-budget-money]");
+      if (money && figs.spent > 0) money.textContent = formatMxn(figs.spent) + " de " + formatMxn(figs.total);
+    });
+    document.querySelectorAll("[data-remain]").forEach(function (el) {
+      var figs = budgetFigures(el.getAttribute("data-remain"));
+      if (!figs || figs.spent <= 0) return;
+      el.textContent = formatMxn(figs.remaining);
+    });
   }
   function campaignState(id) {
     if (id !== "nova") return "";
@@ -307,6 +364,7 @@
     if (sumar) sumar.disabled = approved === 0;
     var vistaMsg = document.getElementById("vistas-msg");
     if (vistaMsg && approved === 0) vistaMsg.textContent = "Aprueba un clip para sumar vistas de demo.";
+    paintBudgetBars();
     var box = document.getElementById("mis-retiros");
     if (!box) return;
     box.textContent = "";
@@ -596,7 +654,41 @@
         created.appendChild(emptyNote(data.nombre));
         if (data.descripcion) created.appendChild(emptyNote(data.descripcion));
         if (data.tarifa) created.appendChild(emptyNote("Tarifa: " + data.tarifa));
-        if (data.presupuesto) created.appendChild(emptyNote("Presupuesto: " + data.presupuesto));
+        if (data.presupuesto) {
+          created.appendChild(emptyNote("Presupuesto: " + data.presupuesto));
+          var bar = document.createElement("div");
+          bar.className = "pct-bar";
+          var top = document.createElement("div");
+          top.className = "pct-bar-top";
+          var usedLabel = document.createElement("span");
+          usedLabel.textContent = "Presupuesto usado";
+          var usedNum = document.createElement("b");
+          usedNum.textContent = "0%";
+          top.appendChild(usedLabel);
+          top.appendChild(usedNum);
+          var meter = document.createElement("div");
+          meter.className = "meter";
+          meter.setAttribute("role", "meter");
+          meter.setAttribute("aria-valuemin", "0");
+          meter.setAttribute("aria-valuemax", "100");
+          meter.setAttribute("aria-valuenow", "0");
+          meter.setAttribute("aria-label", "Presupuesto usado al 0%");
+          var fill = document.createElement("span");
+          fill.style.width = "0%";
+          meter.appendChild(fill);
+          var sub = document.createElement("div");
+          sub.className = "pct-bar-top pct-bar-sub";
+          var leftLabel = document.createElement("span");
+          leftLabel.textContent = "Queda";
+          var leftNum = document.createElement("b");
+          leftNum.textContent = "100%";
+          sub.appendChild(leftLabel);
+          sub.appendChild(leftNum);
+          bar.appendChild(top);
+          bar.appendChild(meter);
+          bar.appendChild(sub);
+          created.appendChild(bar);
+        }
       }
     }
 
@@ -841,11 +933,56 @@
   paintBrandClips();
   bindRegistro();
   paintControl();
+  bindSectionCenter();
   if (document.getElementById("inbox") || document.getElementById("mis-clips") || document.getElementById("control-cuenta")) {
     setInterval(function () {
       paintMyClips();
       paintBrandClips();
       paintControl();
     }, 60000);
+  }
+  function bindSectionCenter() {
+    var anchors = { how: true, campaigns: true, brands: true };
+    function centerSection(id, behavior) {
+      var section = document.getElementById(id);
+      if (!section) return;
+      var header = document.querySelector(".site-header");
+      var headerH = header ? header.offsetHeight : 0;
+      var title = section.querySelector("h2") || section;
+      var rect = title.getBoundingClientRect();
+      var space = window.innerHeight - headerH;
+      var topInView = headerH + Math.max(18, (space - rect.height) / 2);
+      var y = window.scrollY + rect.top - topInView;
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || "auto" });
+    }
+    document.addEventListener("click", function (event) {
+      var node = event.target;
+      if (!node || !node.closest) return;
+      var link = node.closest("a[href]");
+      if (!link) return;
+      var href = link.getAttribute("href") || "";
+      var hashIndex = href.indexOf("#");
+      if (hashIndex < 0) return;
+      var id = href.slice(hashIndex + 1);
+      if (!anchors[id] || !document.getElementById(id)) return;
+      var url = new URL(link.href, location.href);
+      if (url.pathname !== location.pathname) return;
+      event.preventDefault();
+      if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+      centerSection(id, "smooth");
+    });
+    window.addEventListener("hashchange", function () {
+      var id = location.hash.slice(1);
+      if (anchors[id]) centerSection(id, "auto");
+    });
+    var initial = location.hash.slice(1);
+    if (!anchors[initial]) return;
+    function fixInitial() {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { centerSection(initial, "auto"); });
+      });
+    }
+    if (document.readyState === "complete") fixInitial();
+    else window.addEventListener("load", fixInitial);
   }
 })();

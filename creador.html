@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ClipMX | Haz que cada vista cuente</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header class="site-header">
@@ -114,7 +114,12 @@
               <span>por cada 1,000 vistas</span>
             </div>
             <div class="offer-bottom">
-              <span>Presupuesto restante <b>$48,000 MXN</b></span>
+              <span>Presupuesto restante <b data-remain="nova">$48,000 MXN</b></span>
+              <div class="pct-bar" data-budget="nova" data-kind="queda">
+            <div class="pct-bar-top"><span>Queda</span><b data-pct>100%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Queda 100% del presupuesto"><span style="width:100%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Presupuesto usado</span><b data-pct-alt>0%</b></div>
+          </div>
               <a href="campana-nova.html">Ver campaña ↗</a>
               <button class="btn btn-primary btn-small" type="button" data-join="nova">Seleccionar</button>
             </div>
@@ -130,7 +135,12 @@
               <span>por cada 1,000 vistas</span>
             </div>
             <div class="offer-bottom">
-              <span>Presupuesto restante <b>$25,000 MXN</b></span>
+              <span>Presupuesto restante <b data-remain="vertice">$25,000 MXN</b></span>
+              <div class="pct-bar" data-budget="vertice" data-kind="queda">
+            <div class="pct-bar-top"><span>Queda</span><b data-pct>100%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Queda 100% del presupuesto"><span style="width:100%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Presupuesto usado</span><b data-pct-alt>0%</b></div>
+          </div>
               <a href="campana-vertice.html">Ver campaña ↗</a>
               <button class="btn btn-primary btn-small" type="button" data-join="vertice">Seleccionar</button>
             </div>
@@ -146,7 +156,12 @@
               <span>por cada 1,000 vistas</span>
             </div>
             <div class="offer-bottom">
-              <span>Presupuesto restante <b>$31,500 MXN</b></span>
+              <span>Presupuesto restante <b data-remain="norte">$31,500 MXN</b></span>
+              <div class="pct-bar" data-budget="norte" data-kind="queda">
+            <div class="pct-bar-top"><span>Queda</span><b data-pct>100%</b></div>
+            <div class="meter" data-meter role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Queda 100% del presupuesto"><span style="width:100%"></span></div>
+            <div class="pct-bar-top pct-bar-sub"><span>Presupuesto usado</span><b data-pct-alt>0%</b></div>
+          </div>
               <a href="campana-norte.html">Ver campaña ↗</a>
               <button class="btn btn-primary btn-small" type="button" data-join="norte">Seleccionar</button>
             </div>
@@ -195,6 +210,6 @@
       </footer>
     </div>
   </main>
-  <script src="site.js?v=7"></script>
+  <script src="site.js?v=8"></script>
 </body>
 </html>

@@ -282,6 +282,11 @@ h2 {
 }
 
 .section { padding: 72px 0; }
+#how,
+#campaigns,
+#brands {
+  scroll-margin-top: calc(50vh - 38px);
+}
 .section-intro {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -713,6 +718,24 @@ h2 {
 .budget-top strong { font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
 .budget .fine, .review-ok span { color: var(--muted); font-size: 13px; }
 .budget .fine { display: block; margin-top: 8px; }
+.pct-bar { width: 100%; margin-top: 10px; }
+.pct-bar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+}
+.pct-bar-top span { color: var(--muted); }
+.pct-bar-top b {
+  color: var(--text);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+.pct-bar .meter { height: 6px; margin: 6px 0 0; }
+.pct-bar-sub { margin-top: 6px; }
+.budget .pct-bar { margin-top: 0; }
 
 .review-ok {
   display: flex;
